@@ -12,11 +12,11 @@
 
 # 설치항목
 
--[x] npm i react-router-dom
--[] npm i styled-components
--[] npm i styled-reset
--[] swiper
--[] font-awesome
--[] npm i react-hook-form
--[] helmet-async
--[] react icons
+- [x] npm i react-router-dom
+- [x] npm i styled-components
+- [] npm i styled-reset
+- [] swiper
+- [] font-awesome
+- [] npm i react-hook-form
+- [] helmet-async
+- [] react icons
