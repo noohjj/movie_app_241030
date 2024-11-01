@@ -1,49 +1,28 @@
 import { useEffect, useState } from "react";
 import { nowPlaying, popular, topRated, upComing } from "../../api";
+import Loading from "../../components/Loading";
+import Banner from "./components/Banner";
+import { Link } from "react-router-dom";
+import { W500_URL } from "../../constant/imgUrl";
 import { styled } from "styled-components";
 import { mainStyle } from "../../GlobalStyled";
-import { ORIGINAL_URL } from "../../constant/imgUrl";
+import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-const MainBanner = styled.section`
-  height: 80vh;
-  background: url(${ORIGINAL_URL}${(props) => props.$coverImg}}) no-repeat
-    center/cover;
+const Container = styled.section`
   padding: 0 ${mainStyle.moPadding};
-  position: relative;
-  @media screen and (max-width: 450px) {
-    padding: 0 ${mainStyle.moPadding};
-  }
-`;
-
-const TitleWrap = styled.div`
-  max-width: 100%;
-  position: absolute;
-  bottom: 150px;
-  left: 0;
-  padding: 0 ${mainStyle.pcPadding};
-  h3 {
-    font-size: 50px;
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
-  p {
-    font-size: 14px;
-    line-height: 20px;
-    opacity: 0.7;
-  }
-  @media screen and (max-width: 450px) {
+  @media screen and (min-width: 450px) {
     padding: 0 ${mainStyle.pcPadding};
-    width: 60%;
-    h3 {
-      font-size: 35px;
-    }
-
-    p {
-      font-size: 14px;
-      line-height: 30px;
-    }
   }
 `;
+
+const Title = styled.div`
+  margin: 50px 0;
+  font-size: 22px;
+  font-weight: 400;
+`;
+
+const Con = styled.div``;
 
 const Home = () => {
   const [nowData, setNowData] = useState();
@@ -76,17 +55,54 @@ const Home = () => {
   // console.log(topData);
   // console.log(upData);
 
+  const params = {
+    spaceBetween: 10,
+    slidesPerView: 3.3,
+    breakpoints: {
+      1024: {
+        spaceBetween: 20,
+        slidesPerView: 5.5,
+      },
+      640: {
+        spaceBetween: 15,
+        slidesPerView: 4.5,
+      },
+      320: {
+        spaceBetween: 10,
+        slidesPerView: 3.5,
+      },
+    },
+  };
+
   return (
     <div>
       {isLoading ? (
-        "loading..."
+        <Loading />
       ) : (
-        <MainBanner $coverImg={nowData[0]?.backdrop_path}>
-          <TitleWrap>
-            <h3>{nowData[0]?.title}</h3>
-            <p>{nowData[0]?.overview.slice(0, 100) + "..."}</p>
-          </TitleWrap>
-        </MainBanner>
+        <>
+          {nowData && (
+            <div>
+              <Banner data={nowData} />
+              <Container>
+                <Title>현재 상영중</Title>
+                <Swiper {...params}>
+                  {nowData.map((movie) => (
+                    <SwiperSlide key={movie.id}>
+                      <Con>
+                        <Link to={`/detail/${movie.id}`}>
+                          <img
+                            src={W500_URL + movie.poster_path}
+                            alt={movie.title}
+                          />
+                        </Link>
+                      </Con>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </Container>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
