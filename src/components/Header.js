@@ -42,7 +42,7 @@ const Header = () => {
   return (
     <Container>
       <Logo>
-        <Link to={"/"}>PNFLIEX</Link>
+        <Link to={"/"}>JJFLIEX</Link>
       </Logo>
 
       <Menu>

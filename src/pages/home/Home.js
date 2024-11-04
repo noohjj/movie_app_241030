@@ -2,27 +2,8 @@ import { useEffect, useState } from "react";
 import { nowPlaying, popular, topRated, upComing } from "../../api";
 import Loading from "../../components/Loading";
 import Banner from "./components/Banner";
-import { Link } from "react-router-dom";
-import { W500_URL } from "../../constant/imgUrl";
-import { styled } from "styled-components";
-import { mainStyle } from "../../GlobalStyled";
 import "swiper/css";
-import { Swiper, SwiperSlide } from "swiper/react";
-
-const Container = styled.section`
-  padding: 0 ${mainStyle.moPadding};
-  @media screen and (min-width: 450px) {
-    padding: 0 ${mainStyle.pcPadding};
-  }
-`;
-
-const Title = styled.div`
-  margin: 50px 0;
-  font-size: 22px;
-  font-weight: 400;
-`;
-
-const Con = styled.div``;
+import Movies from "./components/Movies";
 
 const Home = () => {
   const [nowData, setNowData] = useState();
@@ -83,23 +64,11 @@ const Home = () => {
           {nowData && (
             <div>
               <Banner data={nowData} />
-              <Container>
-                <Title>현재 상영중</Title>
-                <Swiper {...params}>
-                  {nowData.map((movie) => (
-                    <SwiperSlide key={movie.id}>
-                      <Con>
-                        <Link to={`/detail/${movie.id}`}>
-                          <img
-                            src={W500_URL + movie.poster_path}
-                            alt={movie.title}
-                          />
-                        </Link>
-                      </Con>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </Container>
+
+              <Movies data={nowData} title="현재 상영중" />
+              <Movies data={popData} title="인기영화" />
+              <Movies data={topData} title="랭킹 영화" />
+              <Movies data={upData} title="개봉 예정 영화" />
             </div>
           )}
         </>
