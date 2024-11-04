@@ -5,6 +5,8 @@ import { styled } from "styled-components";
 import { mainStyle } from "../../GlobalStyled";
 import Loading from "../../components/Loading";
 import { ORIGINAL_URL } from "../../constant/imgUrl";
+import { Helmet } from "react-helmet-async";
+import PageTitle from "../../components/PageTitle";
 
 const Container = styled.section`
   padding: 150px ${mainStyle.pcPadding};
@@ -51,6 +53,7 @@ const Detail = () => {
   const { id } = useParams();
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     (async () => {
       try {
@@ -61,7 +64,7 @@ const Detail = () => {
         console.log(error);
       }
     })();
-  }, []);
+  }, [id]);
 
   return (
     <>
@@ -69,24 +72,27 @@ const Detail = () => {
         <Loading />
       ) : (
         <>
-          <Container>
-            <Bg
-              style={{
-                background: `url(${ORIGINAL_URL}${data.poster_path}) no-repeat center/cover`,
-              }}
-            />
-            <TitleWrap>
-              <h3>{data.title}</h3>
-              <span>{Math.round(data.vote_average)}점</span>·
-              <span>{data.runtime}분</span>·<span>{data.releasr_date}</span>
-              <ul>
-                {data.genres.map((genre) => (
-                  <li key={genre.id}>{genre.name}</li>
-                ))}
-              </ul>
-              <p>{data.overview}</p>
-            </TitleWrap>
-          </Container>
+          <PageTitle title={data?.title} />
+          {data && (
+            <Container>
+              <Bg
+                style={{
+                  background: `url(${ORIGINAL_URL}${data.poster_path}) no-repeat center / cover`,
+                }}
+              />
+              <TitleWrap>
+                <h3>{data?.title}</h3>
+                <span>{Math.round(data.vote_average)}점</span> •{" "}
+                <span>{data.runtime}분</span> • <span>{data.release_date}</span>
+                <ul>
+                  {data.genres.map((genre) => (
+                    <li key={genre.id}>{genre.name}</li>
+                  ))}
+                </ul>
+                <p>{data.overview}</p>
+              </TitleWrap>
+            </Container>
+          )}
         </>
       )}
     </>
