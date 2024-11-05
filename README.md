@@ -7,16 +7,16 @@
 - [x] 웹 폰트 설정
 - [x] 각 페이지 UI 작업 및 반응형
 - [x] Helmet
-- [] Header Scroll Event
+- [x] Header Scroll Event
 - [] Deploy
 
 # 설치항목
 
 - [x] npm i react-router-dom
 - [x] npm i styled-components
-- [] npm i styled-reset
-- [] swiper
-- [] font-awesome
-- [] npm i react-hook-form
-- [] helmet-async
-- [] react icons
+- [x] npm i styled-reset
+- [x] swiper
+- [x] font-awesome
+- [x] npm i react-hook-form
+- [x] helmet-async
+- [x] react icons
