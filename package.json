@@ -28,7 +28,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage" : "https://noohjj.github.io/movie_review_24_1030/#/",
+  "homepage" : "https://noohjj.github.io/movie_app_241030/#/",
   "eslintConfig": {
     "extends": [
       "react-app",
